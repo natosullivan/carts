@@ -16,20 +16,10 @@ pipeline {
     }
 
     stage('Package') {
-      parallel {
-        stage('Package') {
-          steps {
-            echo 'Packaging...'
-            sh 'mvn package -DskipTests'
-          }
-        }
-
-        stage('error') {
-          steps {
-            archiveArtifacts 'target/*.jar'
-          }
-        }
-
+      steps {
+        echo 'Packaging...'
+        sh 'mvn package -DskipTests'
+        archiveArtifacts '**/target/*.jar'
       }
     }
 
